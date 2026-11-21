@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lucro Certo · Planilha de preço e lucro para Shopee e Mercado Livre</title>
-<meta name="description" content="Planilha pronta que calcula o preço certo e o lucro real de cada produto na Shopee e no Mercado Livre, com as taxas de 2026. R$ 37, acesso imediato.">
+<meta name="description" content="Planilha pronta que calcula o preço certo e o lucro real de cada produto na Shopee e no Mercado Livre, com as taxas de 2026. R$ 19,90, acesso imediato.">
 <meta property="og:title" content="Lucro Certo · Planilha de preço para marketplaces">
 <meta property="og:description" content="Descubra quanto sobra de verdade em cada venda na Shopee e no Mercado Livre.">
 <meta property="og:image" content="calculadora.jpg">
@@ -59,6 +59,15 @@ footer{background:var(--bg);color:var(--grey);font-size:14px;padding:28px 0;text
 .sticky.on{transform:none}
 .sticky .btn{margin:0;padding:12px 18px;font-size:16px;box-shadow:none}
 .sticky b{font-size:18px}
+.sim{background:#fff;border:2px solid var(--green);border-radius:16px;padding:20px;margin:18px 0}
+.sim label{display:block;font-size:14px;font-weight:700;color:#344054;margin:0 0 4px}
+.sim .in{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.sim input{width:100%;font-size:18px;padding:10px 12px;border:1px solid #cfd4dc;border-radius:10px;background:var(--yel);color:var(--navy);font-weight:700}
+.sim .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);font-size:16px}
+.sim .row b{color:var(--red)}
+.sim .tot{display:flex;justify-content:space-between;padding-top:12px;font-weight:800;font-size:22px}
+.sim .msg{margin-top:12px;padding:12px 14px;border-radius:10px;font-size:15px;font-weight:600}
+.sim .msg.bad{background:#fdecea;color:var(--red)}.sim .msg.mid{background:var(--yel);color:#8a6100}.sim .msg.good{background:#e8f5e9;color:var(--green)}
 </style>
 </head>
 <body>
@@ -69,7 +78,7 @@ footer{background:var(--bg);color:var(--grey);font-size:14px;padding:28px 0;text
     <h1>Você sabe quanto sobra de verdade em cada venda na <em>Shopee</em> e no <em>Mercado Livre</em>?</h1>
     <p class="sub">Uma planilha pronta que calcula o preço mínimo, o preço ideal e o lucro real de cada produto, já com as taxas de 2026, imposto, anúncios e embalagem.</p>
     <img class="shot" src="calculadora.jpg" alt="Print da calculadora da planilha Lucro Certo mostrando preço mínimo, preço ideal e lucro por venda na Shopee e no Mercado Livre" width="1000" height="1029">
-    <a class="btn" href="https://pay.kiwify.com.br/vUn1tlx">Quero a planilha por R$ 37</a>
+    <a class="btn" href="https://pay.kiwify.com.br/vUn1tlx">Quero a planilha por R$ 19,90</a>
     <p class="mini">Pagamento único · Acesso imediato por e-mail · 7 dias de garantia</p>
   </div>
 </header>
@@ -90,7 +99,48 @@ footer{background:var(--bg);color:var(--grey);font-size:14px;padding:28px 0;text
   </div>
 </section>
 
-<section class="alt">
+<section class="alt" id="teste">
+  <div class="wrap">
+    <h2>Teste agora com um produto seu</h2>
+    <p>Digite o preço e o custo de um produto que você vende na Shopee. A conta usa as taxas de 2026 para vendedor CNPJ.</p>
+    <div class="sim">
+      <div class="in">
+        <div><label for="sp">Preço de venda (R$)</label><input id="sp" inputmode="decimal" value="59,90"></div>
+        <div><label for="sc">Custo do produto + embalagem (R$)</label><input id="sc" inputmode="decimal" value="27,00"></div>
+        <div><label for="si">Imposto (%)</label><input id="si" inputmode="decimal" value="6"></div>
+        <div><label for="sa">Anúncios (% do preço)</label><input id="sa" inputmode="decimal" value="5"></div>
+      </div>
+      <div class="row"><span id="lc">Comissão</span><b id="vc"></b></div>
+      <div class="row"><span>Taxa fixa por item</span><b id="vf"></b></div>
+      <div class="row"><span>Imposto</span><b id="vi"></b></div>
+      <div class="row"><span>Anúncios</span><b id="va"></b></div>
+      <div class="row"><span>Produto + embalagem</span><b id="vp"></b></div>
+      <div class="tot"><span>Sobra para você</span><span id="vt"></span></div>
+      <div class="msg" id="vm"></div>
+    </div>
+    <p>Isso é <b>um produto, numa loja</b>. A planilha faz essa conta para até 300 produtos ao mesmo tempo, compara Shopee, ML Clássico e ML Premium e mostra o preço ideal de cada um.</p>
+    <a class="btn" href="https://pay.kiwify.com.br/vUn1tlx">Quero a planilha completa por R$ 19,90</a>
+  </div>
+</section>
+<script>
+(function(){
+var B=[[0,7.99,.2,0,.5],[8,79.99,.2,4.5,0],[80,99.99,.14,16,0],[100,199.99,.14,20,0],[200,1e9,.14,26,0]];
+function n(id){var v=document.getElementById(id).value.replace(/\./g,'').replace(',','.');v=parseFloat(v);return isNaN(v)?0:v}
+function m(v){return 'R$ '+v.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.')}
+function s(id,v){document.getElementById(id).textContent=v}
+function calc(){var p=n('sp'),c=n('sc'),i=n('si')/100,a=n('sa')/100,b=B[0];
+for(var k=0;k<B.length;k++){if(p>=B[k][0]&&p<=B[k][1]+0.004){b=B[k];break}}
+var com=p*b[2],fix=b[4]?p*b[4]:b[3],imp=p*i,ads=p*a,t=p-com-fix-imp-ads-c,mg=p>0?t/p:0;
+s('lc','Comissão ('+Math.round(b[2]*100)+'%)');s('vc','− '+m(com));s('vf','− '+m(fix));s('vi','− '+m(imp));s('va','− '+m(ads));s('vp','− '+m(c));
+var vt=document.getElementById('vt');vt.textContent=(t<0?'− ':'')+m(Math.abs(t));vt.style.color=t<0?'#c62828':'#2e7d32';
+var e=document.getElementById('vm'),pct=(mg*100).toFixed(0)+'%';
+if(t<0){e.className='msg bad';e.textContent='Prejuízo: cada venda tira '+m(-t)+' do seu bolso.'}
+else if(mg<.15){e.className='msg mid';e.textContent='Margem de '+pct+'. Apertada: um cupom ou frete a mais e vira prejuízo.'}
+else{e.className='msg good';e.textContent='Margem de '+pct+'. Confira se as outras faixas de preço deixam ainda mais com você.'}}
+['sp','sc','si','sa'].forEach(function(id){document.getElementById(id).addEventListener('input',calc)});calc()})();
+</script>
+
+<section class="light">
   <div class="wrap">
     <h2>A armadilha dos R$ 80</h2>
     <p>Na Shopee, a taxa fixa muda conforme a faixa de preço. Um produto de <b>R$ 79,90</b> paga R$ 4,50 de taxa fixa. O mesmo produto a <b>R$ 80,00</b> paga R$ 16.</p>
@@ -145,7 +195,7 @@ footer{background:var(--bg);color:var(--grey);font-size:14px;padding:28px 0;text
   <div class="wrap">
     <div class="price">
       <div class="old">Lucro Certo · planilha + guia</div>
-      <div class="val"><small>R$</small> 37</div>
+      <div class="val"><small>R$</small> 19,90</div>
       <div class="old">pagamento único, sem mensalidade</div>
       <ul class="ok">
         <li>Calculadora de preço mínimo e ideal</li>
@@ -172,7 +222,7 @@ footer{background:var(--bg);color:var(--grey);font-size:14px;padding:28px 0;text
     <details><summary>Serve para quem é MEI ou CPF?</summary><p>Sim. Você informa o seu imposto (MEI paga o DAS fixo, então pode colocar 0%) e se vende como CPF ou CNPJ na Shopee.</p></details>
     <details><summary>Como recebo?</summary><p>Assim que o pagamento é confirmado, você recebe um e-mail da Kiwify com o acesso à área de membros, onde baixa a planilha e o guia. No Pix e no cartão é na hora.</p></details>
     <details><summary>Isso substitui o meu contador?</summary><p>Não. A planilha é uma ferramenta de cálculo de preço. Para confirmar a alíquota do seu imposto, fale com o seu contador.</p></details>
-    <a class="btn" style="margin-top:28px" href="https://pay.kiwify.com.br/vUn1tlx">Quero a planilha por R$ 37</a>
+    <a class="btn" style="margin-top:28px" href="https://pay.kiwify.com.br/vUn1tlx">Quero a planilha por R$ 19,90</a>
   </div>
 </section>
 
@@ -183,7 +233,7 @@ footer{background:var(--bg);color:var(--grey);font-size:14px;padding:28px 0;text
   </div>
 </footer>
 
-<div class="sticky" id="sticky"><b>R$ 37</b><a class="btn" href="https://pay.kiwify.com.br/vUn1tlx">Comprar agora</a></div>
+<div class="sticky" id="sticky"><b>R$ 19,90</b><a class="btn" href="https://pay.kiwify.com.br/vUn1tlx">Comprar agora</a></div>
 <script>
 (function(){var s=document.getElementById('sticky');function f(){var y=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;s.classList.toggle('on',y>600&&y<h-500)}window.addEventListener('scroll',f,{passive:true});f()})();
 </script>
