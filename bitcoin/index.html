@@ -62,6 +62,11 @@ footer{background:var(--bg);color:var(--grey);font-size:14px;padding:28px 0;text
 .sticky .btn{margin:0;padding:12px 18px;font-size:16px;box-shadow:none}
 @media(min-width:700px){h1{font-size:44px}}
 </style>
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1691862915713843');fbq('track','PageView');fbq('track','ViewContent',{content_name:'Simulador Bitcoin'});
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href*="pay.kiwify"]');if(a)fbq('track','InitiateCheckout',{content_name:'Simulador Bitcoin'})});
+</script>
 </head>
 <body>
 
