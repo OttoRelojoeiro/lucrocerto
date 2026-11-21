@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulador Bitcoin Mês a Mês · quanto você teria com aportes mensais</title>
+<meta name="description" content="Planilha com o preço do Bitcoin em reais desde 2010. Simule quanto teria juntado colocando um valor fixo todo mês. R$ 19,90, acesso imediato.">
+<meta property="og:title" content="Simulador Bitcoin Mês a Mês">
+<meta property="og:description" content="E se você tivesse colocado R$ 100 por mês em Bitcoin? Simule qualquer período desde 2010.">
+<meta property="og:image" content="grafico-2019.jpg">
+<link rel="icon" href="icone.png">
+<style>
+:root{--navy:#151b2b;--navy2:#1f2a44;--or:#f7931a;--grey:#667085;--bg:#f7f8fb;--line:#e4e7ec;--green:#2e7d32;--red:#c62828}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;color:var(--navy2);background:#fff;line-height:1.55;font-size:17px}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+section{padding:48px 0}
+h1{font-size:34px;line-height:1.15;margin:18px 0 14px;font-weight:800;letter-spacing:-.5px}
+h2{font-size:27px;line-height:1.2;margin:0 0 16px;font-weight:800}
+p{margin:0 0 14px}
+.hero{background:var(--navy);color:#fff;padding:36px 0 48px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800}
+.coin{width:40px;height:40px;border-radius:50%;background:var(--or);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800}
+.hero h1 em{font-style:normal;color:var(--or)}
+.sub{color:#c8d0de;font-size:18px}
+.shot{display:block;width:100%;height:auto;border-radius:12px;margin:22px 0;box-shadow:0 12px 30px rgba(0,0,0,.2);background:#fff}
+.btn{display:block;text-align:center;background:var(--or);color:#151b2b;text-decoration:none;font-weight:800;font-size:19px;padding:18px 20px;border-radius:12px;box-shadow:0 6px 0 #c26f0c;margin:8px 0 10px}
+.btn:active{transform:translateY(3px);box-shadow:0 3px 0 #c26f0c}
+.mini{font-size:14px;color:#c8d0de;text-align:center}
+.light .mini{color:var(--grey)}
+.alt{background:var(--bg)}
+.big{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.big div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+.big small{display:block;color:var(--grey);font-size:14px}
+.big b{font-size:26px;color:var(--navy2)}
+.big .o{color:var(--or)}
+.ok{list-style:none;padding:0;margin:0}
+.ok li{position:relative;padding:0 0 12px 34px}
+.ok li:before{content:"✓";position:absolute;left:0;top:1px;width:23px;height:23px;border-radius:50%;background:var(--green);color:#fff;font-size:14px;font-weight:800;text-align:center;line-height:23px}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:s;position:relative;padding:0 0 18px 50px}
+.steps li:before{content:counter(s);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:var(--navy2);color:#fff;font-weight:800;text-align:center;line-height:36px}
+table{width:100%;border-collapse:collapse;font-size:15px;background:#fff;border-radius:12px;overflow:hidden}
+th,td{padding:10px 10px;border-bottom:1px solid var(--line);text-align:right}
+th{background:var(--navy2);color:#fff;font-weight:700}
+th:first-child,td:first-child{text-align:left}
+td.pos{color:var(--green);font-weight:700}
+.price{background:var(--navy);color:#fff;border-radius:18px;padding:28px 22px;text-align:center}
+.price .val{font-size:52px;font-weight:800;line-height:1;margin:6px 0}
+.price .val small{font-size:22px}
+.price ul{text-align:left;margin:20px 0}
+.guar{display:flex;gap:16px;align-items:center;background:#fff4c2;border-radius:14px;padding:18px 20px;margin-top:22px}
+.seal{flex:0 0 72px;height:72px;border-radius:50%;background:#f5b400;color:var(--navy2);font-weight:800;text-align:center;line-height:1.05;padding-top:15px;font-size:24px}
+.seal small{display:block;font-size:11px}
+.warn{background:#fff;border-left:4px solid var(--or);padding:14px 16px;border-radius:8px;font-size:15px;color:#344054}
+details{border-bottom:1px solid var(--line);padding:14px 0}
+summary{font-weight:700;cursor:pointer}
+details p{margin:10px 0 0;color:#344054}
+footer{background:var(--bg);color:var(--grey);font-size:14px;padding:28px 0;text-align:center}
+.sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:10px 16px;display:flex;align-items:center;gap:12px;justify-content:center;transform:translateY(110%);transition:transform .25s}
+.sticky.on{transform:none}
+.sticky .btn{margin:0;padding:12px 18px;font-size:16px;box-shadow:none}
+@media(min-width:700px){h1{font-size:44px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brand"><span class="coin">₿</span> Simulador Bitcoin Mês a Mês</div>
+    <h1>E se você tivesse colocado <em>R$ 100 por mês</em> em Bitcoin desde 2019?</h1>
+    <p class="sub">Uma planilha com o preço do Bitcoin em reais no dia 7 de cada mês, desde 2010. Você escolhe o valor e o período e vê quanto teria juntado de BTC e quanto valeria.</p>
+    <div class="big">
+      <div><small>Você teria colocado</small><b>R$ 9.300</b></div>
+      <div><small>Valeria em 07/11/2026</small><b class="o">R$ 37.716</b></div>
+    </div>
+    <img class="shot" src="grafico-2019.jpg" alt="Gráfico: R$ 100 por mês em Bitcoin de março de 2019 a novembro de 2026, quanto foi colocado e quanto valia" width="1000" height="600">
+    <a class="btn" href="https://pay.kiwify.com.br/5XupUAu">Quero simular · R$ 19,90</a>
+    <p class="mini">Pagamento único · Acesso imediato · Excel, Google Sheets e Numbers</p>
+  </div>
+</header>
+
+<section class="light">
+  <div class="wrap">
+    <h2>O segredo não é acertar o momento. É não parar.</h2>
+    <p>Quem tenta comprar no fundo quase sempre erra. Quem coloca um valor fixo todo mês compra mais barato nas quedas e mais caro nas altas, e no fim paga um preço médio. A planilha mostra o que aconteceu com quem fez isso em qualquer período desde 2010.</p>
+    <p>Veja o pior caso: alguém que começou exatamente no topo de novembro de 2021.</p>
+    <img class="shot" src="grafico-2021.jpg" alt="Gráfico: R$ 100 por mês começando em novembro de 2021" width="1000" height="600">
+    <p>Essa pessoa passou <b>18 meses no vermelho</b> e chegou a ver <b>-44%</b>. Quem continuou colocando R$ 100 todo mês tinha colocado R$ 6.100 e, em 07/11/2026, teria <b>R$ 11.330</b>.</p>
+    <div class="warn">A planilha mostra também os períodos ruins, de propósito. Em prazos curtos o Bitcoin pode cair muito e ficar meses ou anos abaixo do que você pagou. Rentabilidade passada não garante rentabilidade futura.</div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>Alguns cenários com R$ 100 por mês</h2>
+    <table>
+      <tr><th>Começando em</th><th>Colocou</th><th>Valeria*</th></tr>
+      <tr><td>Últimos 12 meses</td><td>R$ 1.200</td><td class="pos">R$ 1.306</td></tr>
+      <tr><td>Últimos 3 anos</td><td>R$ 3.600</td><td class="pos">R$ 3.873</td></tr>
+      <tr><td>Topo de nov/2021</td><td>R$ 6.100</td><td class="pos">R$ 11.330</td></tr>
+      <tr><td>Março de 2019</td><td>R$ 9.300</td><td class="pos">R$ 37.716</td></tr>
+      <tr><td>Janeiro de 2017</td><td>R$ 11.900</td><td class="pos">R$ 142.770</td></tr>
+    </table>
+    <p style="font-size:14px;color:var(--grey);margin-top:10px">*Valor calculado com o preço do Bitcoin em 07/11/2026, sem taxas nem imposto.</p>
+  </div>
+</section>
+
+<section class="light">
+  <div class="wrap">
+    <h2>Como funciona</h2>
+    <ol class="steps">
+      <li><b>Digite quanto colocaria por mês.</b> R$ 50, R$ 100, R$ 500, o valor que fizer sentido para você.</li>
+      <li><b>Escolha o mês e o ano de início e de fim.</b> Qualquer período entre setembro de 2010 e hoje.</li>
+      <li><b>Veja o resultado na hora:</b> quanto colocou, quantos BTC teria juntado, quanto valeria, o lucro e o pior momento do caminho.</li>
+    </ol>
+    <img class="shot" src="simulador.jpg" alt="Tela do simulador com os campos de valor mensal, início e fim, e o resultado em BTC e em reais" width="1000" height="777">
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>O que você recebe</h2>
+    <ul class="ok">
+      <li><b>Planilha Simulador Bitcoin Mês a Mês</b>, para Excel, Google Sheets e Numbers.</li>
+      <li><b>195 meses de preços em reais</b>, de setembro de 2010 a novembro de 2026, no dia 7 de cada mês.</li>
+      <li><b>Fontes abertas:</b> preço em dólar da Blockchain.com e dólar PTAX do Banco Central.</li>
+      <li><b>Gráfico mês a mês</b> de quanto você colocou contra quanto valia.</li>
+      <li><b>Fácil de atualizar:</b> todo mês você inclui uma linha com o novo preço.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="light" id="comprar">
+  <div class="wrap">
+    <div class="price">
+      <div style="color:#c8d0de">Simulador Bitcoin Mês a Mês</div>
+      <div class="val"><small>R$</small> 19,90</div>
+      <div style="color:#c8d0de">pagamento único</div>
+      <ul class="ok">
+        <li>Preços em reais desde 2010</li>
+        <li>Simulação de qualquer período</li>
+        <li>BTC acumulado, valor e pior momento</li>
+        <li>Excel, Google Sheets e Numbers</li>
+      </ul>
+      <a class="btn" href="https://pay.kiwify.com.br/5XupUAu">Comprar agora</a>
+      <p class="mini">Pix, cartão ou boleto · Pagamento processado pela Kiwify</p>
+    </div>
+    <div class="guar">
+      <div class="seal">7<small>DIAS</small></div>
+      <div><b>Garantia de 7 dias.</b> Se a planilha não for útil para você, peça o reembolso em até 7 dias pela própria Kiwify e recebe 100% do valor.</div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>Perguntas frequentes</h2>
+    <details><summary>Isso é recomendação de investimento?</summary><p>Não. É uma ferramenta educativa que mostra o que aconteceu no passado com preços reais. Não diz o que vai acontecer nem o que você deve fazer.</p></details>
+    <details><summary>Por que o dia 7?</summary><p>Para ter um ponto fixo e comparável em todos os meses, como um aporte programado que cai sempre no mesmo dia.</p></details>
+    <details><summary>A simulação considera taxas e imposto?</summary><p>Não. Corretoras cobram taxas e spread, e lucros acima do limite de isenção pagam imposto de renda. O resultado real seria um pouco menor.</p></details>
+    <details><summary>Funciona no celular?</summary><p>Funciona no app do Google Sheets e do Numbers. No computador é mais confortável.</p></details>
+    <details><summary>Como recebo?</summary><p>Depois da confirmação do pagamento você recebe um e-mail da Kiwify com o acesso à área de membros, onde baixa a planilha. No Pix e no cartão é na hora.</p></details>
+    <a class="btn" style="margin-top:28px" href="https://pay.kiwify.com.br/5XupUAu">Quero simular · R$ 19,90</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Simulador Bitcoin Mês a Mês · J d Medeiros Ltda</p>
+    <p>Simulação com preços históricos. Rentabilidade passada não garante rentabilidade futura. Não é recomendação de investimento.</p>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky"><b>R$ 19,90</b><a class="btn" href="https://pay.kiwify.com.br/5XupUAu">Comprar agora</a></div>
+<script>
+(function(){var s=document.getElementById('sticky');function f(){var y=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;s.classList.toggle('on',y>600&&y<h-500)}window.addEventListener('scroll',f,{passive:true});f()})();
+</script>
+</body>
+</html>
