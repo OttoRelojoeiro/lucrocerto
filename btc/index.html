@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bitcoin DCA Simulator · what $100 a month in Bitcoin would be worth</title>
+<meta name="description" content="Spreadsheet with the Bitcoin price in US dollars every month since 2010. Simulate what a fixed monthly amount would have stacked. $7, instant access.">
+<meta property="og:title" content="Bitcoin DCA Simulator">
+<meta property="og:description" content="What if you had invested $100 a month in Bitcoin? Simulate any period since 2010.">
+<meta property="og:image" content="chart-2019.jpg">
+<link rel="icon" href="icon.png">
+<style>
+:root{--navy:#151b2b;--navy2:#1f2a44;--or:#f7931a;--grey:#667085;--bg:#f7f8fb;--line:#e4e7ec;--green:#2e7d32;--red:#c62828}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;color:var(--navy2);background:#fff;line-height:1.55;font-size:17px}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+section{padding:48px 0}
+h1{font-size:34px;line-height:1.15;margin:18px 0 14px;font-weight:800;letter-spacing:-.5px}
+h2{font-size:27px;line-height:1.2;margin:0 0 16px;font-weight:800}
+p{margin:0 0 14px}
+.hero{background:var(--navy);color:#fff;padding:36px 0 48px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800}
+.coin{width:40px;height:40px;border-radius:50%;background:var(--or);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800}
+.hero h1 em{font-style:normal;color:var(--or)}
+.sub{color:#c8d0de;font-size:18px}
+.shot{display:block;width:100%;height:auto;border-radius:12px;margin:22px 0;box-shadow:0 12px 30px rgba(0,0,0,.2);background:#fff}
+.btn{display:block;text-align:center;background:var(--or);color:#151b2b;text-decoration:none;font-weight:800;font-size:19px;padding:18px 20px;border-radius:12px;box-shadow:0 6px 0 #c26f0c;margin:8px 0 10px}
+.btn:active{transform:translateY(3px);box-shadow:0 3px 0 #c26f0c}
+.mini{font-size:14px;color:#c8d0de;text-align:center}
+.light .mini{color:var(--grey)}
+.alt{background:var(--bg)}
+.big{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.big div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+.big small{display:block;color:var(--grey);font-size:14px}
+.big b{font-size:26px;color:var(--navy2)}
+.big .o{color:var(--or)}
+.ok{list-style:none;padding:0;margin:0}
+.ok li{position:relative;padding:0 0 12px 34px}
+.ok li:before{content:"✓";position:absolute;left:0;top:1px;width:23px;height:23px;border-radius:50%;background:var(--green);color:#fff;font-size:14px;font-weight:800;text-align:center;line-height:23px}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:s;position:relative;padding:0 0 18px 50px}
+.steps li:before{content:counter(s);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:var(--navy2);color:#fff;font-weight:800;text-align:center;line-height:36px}
+table{width:100%;border-collapse:collapse;font-size:15px;background:#fff;border-radius:12px;overflow:hidden}
+th,td{padding:10px 10px;border-bottom:1px solid var(--line);text-align:right}
+th{background:var(--navy2);color:#fff;font-weight:700}
+th:first-child,td:first-child{text-align:left}
+td.pos{color:var(--green);font-weight:700}
+.price{background:var(--navy);color:#fff;border-radius:18px;padding:28px 22px;text-align:center}
+.price .val{font-size:52px;font-weight:800;line-height:1;margin:6px 0}
+.price .val small{font-size:22px}
+.price ul{text-align:left;margin:20px 0}
+.guar{display:flex;gap:16px;align-items:center;background:#fff4c2;border-radius:14px;padding:18px 20px;margin-top:22px}
+.seal{flex:0 0 72px;height:72px;border-radius:50%;background:#f5b400;color:var(--navy2);font-weight:800;text-align:center;line-height:1.05;padding-top:15px;font-size:24px}
+.seal small{display:block;font-size:11px}
+.warn{background:#fff;border-left:4px solid var(--or);padding:14px 16px;border-radius:8px;font-size:15px;color:#344054}
+details{border-bottom:1px solid var(--line);padding:14px 0}
+summary{font-weight:700;cursor:pointer}
+details p{margin:10px 0 0;color:#344054}
+footer{background:var(--bg);color:var(--grey);font-size:14px;padding:28px 0;text-align:center}
+.sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:10px 16px;display:flex;align-items:center;gap:12px;justify-content:center;transform:translateY(110%);transition:transform .25s}
+.sticky.on{transform:none}
+.sticky .btn{margin:0;padding:12px 18px;font-size:16px;box-shadow:none}
+@media(min-width:700px){h1{font-size:44px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brand"><span class="coin">₿</span> Bitcoin DCA Simulator</div>
+    <h1>What if you had invested <em>$100 a month</em> in Bitcoin since 2019?</h1>
+    <p class="sub">A spreadsheet with the Bitcoin price in US dollars on the 7th of every month since 2010. Pick the amount and the period and see how much BTC you would have stacked and what it would be worth.</p>
+    <div class="big">
+      <div><small>You would have put in</small><b>$9,300</b></div>
+      <div><small>Worth on 11/07/2026</small><b class="o">$32,004</b></div>
+    </div>
+    <img class="shot" src="chart-2019.jpg" alt="Chart: $100 a month in Bitcoin from March 2019 to November 2026, what was put in and what it was worth" width="1000" height="600">
+    <a class="btn" href="https://pay.kiwify.com/Rt0c5FP">Run my simulation · $7</a>
+    <p class="mini">One-time payment · Instant access · Excel, Google Sheets and Numbers</p>
+  </div>
+</header>
+
+<section class="light">
+  <div class="wrap">
+    <h2>The secret isn't timing the market. It's not stopping.</h2>
+    <p>People who try to buy the bottom usually miss it. People who put in a fixed amount every month buy more when prices drop and less when they rise, and end up paying an average price. The spreadsheet shows what happened to anyone who did that, over any period since 2010.</p>
+    <p>Look at the worst case: someone who started right at the top in November 2021.</p>
+    <img class="shot" src="chart-2021.jpg" alt="Chart: $100 a month starting in November 2021" width="1000" height="600">
+    <p>That person spent <b>17 months in the red</b> and saw <b>-45%</b> at the lowest point. Anyone who kept putting in $100 every month had put in $6,100 and, on 11/07/2026, would have <b>$10,690</b>.</p>
+    <div class="warn">The spreadsheet shows the bad periods too, on purpose. Over short periods Bitcoin can drop a lot and stay below what you paid for months or years. Past performance does not guarantee future results.</div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>A few scenarios at $100 a month</h2>
+    <table>
+      <tr><th>Starting</th><th>Put in</th><th>Worth*</th></tr>
+      <tr><td>Last 12 months</td><td>$1,200</td><td class="pos">$1,231</td></tr>
+      <tr><td>Last 3 years</td><td>$3,600</td><td class="pos">$3,729</td></tr>
+      <tr><td>Nov 2021 top</td><td>$6,100</td><td class="pos">$10,690</td></tr>
+      <tr><td>March 2019</td><td>$9,300</td><td class="pos">$32,004</td></tr>
+      <tr><td>January 2017</td><td>$11,900</td><td class="pos">$94,980</td></tr>
+    </table>
+    <p style="font-size:14px;color:var(--grey);margin-top:10px">*Value at the Bitcoin price on 11/07/2026, before fees and taxes.</p>
+  </div>
+</section>
+
+<section class="light">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li><b>Type how much you'd put in each month.</b> $25, $100, $500, whatever makes sense for you.</li>
+      <li><b>Pick the start and end month and year.</b> Any period between September 2010 and today.</li>
+      <li><b>See the result instantly:</b> what you put in, how much BTC you'd have stacked, what it would be worth, the profit and the worst moment along the way.</li>
+    </ol>
+    <img class="shot" src="simulator.jpg" alt="Simulator screen with amount per month, start and end, and the result in BTC and dollars" width="1000" height="777">
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>What you get</h2>
+    <ul class="ok">
+      <li><b>Bitcoin DCA Simulator spreadsheet</b> for Excel, Google Sheets and Numbers.</li>
+      <li><b>195 months of prices in US dollars</b>, from September 2010 to November 2026, on the 7th of each month.</li>
+      <li><b>Open source data:</b> Bitcoin price from Blockchain.com.</li>
+      <li><b>Month-by-month chart</b> of what you put in versus what it was worth.</li>
+      <li><b>Easy to update:</b> each month, add one row with the new price.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="light" id="buy">
+  <div class="wrap">
+    <div class="price">
+      <div style="color:#c8d0de">Bitcoin DCA Simulator</div>
+      <div class="val"><small>$</small>7</div>
+      <div style="color:#c8d0de">one-time payment</div>
+      <ul class="ok">
+        <li>US dollar prices since 2010</li>
+        <li>Simulate any period</li>
+        <li>BTC stacked, value and worst moment</li>
+        <li>Excel, Google Sheets and Numbers</li>
+      </ul>
+      <a class="btn" href="https://pay.kiwify.com/Rt0c5FP">Buy now</a>
+      <p class="mini">Card payment · Processed securely by Kiwify</p>
+    </div>
+    <div class="guar">
+      <div class="seal">7<small>DAYS</small></div>
+      <div><b>7-day guarantee.</b> If the spreadsheet isn't useful to you, request a refund within 7 days through Kiwify and get 100% of your money back.</div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>FAQ</h2>
+    <details><summary>Is this investment advice?</summary><p>No. It's an educational tool that shows what happened in the past using real prices. It doesn't tell you what will happen or what you should do.</p></details>
+    <details><summary>Why the 7th?</summary><p>To have a fixed, comparable point every month, like an automatic purchase that always lands on the same day.</p></details>
+    <details><summary>Does it include fees and taxes?</summary><p>No. Exchanges charge fees and spreads, and gains may be taxable where you live. Real results would be a bit lower.</p></details>
+    <details><summary>Does it work on my phone?</summary><p>Yes, in the Google Sheets and Numbers apps. A computer is more comfortable.</p></details>
+    <details><summary>How do I get it?</summary><p>After payment you get an email from Kiwify with access to the members area, where you download the spreadsheet. It's instant.</p></details>
+    <a class="btn" style="margin-top:28px" href="https://pay.kiwify.com/Rt0c5FP">Run my simulation · $7</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Bitcoin DCA Simulator · J d Medeiros Ltda</p>
+    <p>Simulation with historical prices. Past performance does not guarantee future results. Not investment advice.</p>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky"><b>$7</b><a class="btn" href="https://pay.kiwify.com/Rt0c5FP">Buy now</a></div>
+<script>
+(function(){var s=document.getElementById('sticky');function f(){var y=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;s.classList.toggle('on',y>600&&y<h-500)}window.addEventListener('scroll',f,{passive:true});f()})();
+</script>
+</body>
+</html>
